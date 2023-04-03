@@ -1,0 +1,130 @@
+schema {
+    query: Query
+    mutation: Mutation
+}
+
+
+# Post types
+type Post {
+    id: ID!
+    title: String!
+    description: String!
+    created_at: String!
+    user: User!
+}
+
+type PostResult {
+    success: Boolean!
+    errors: [String]
+    post: Post
+}
+
+type PostsResult {
+    success: Boolean!
+    errors: [String]
+    posts: [Post]
+}
+
+
+# User types
+type User {
+    id: ID!
+    username: String!
+    email: String!
+    password: String!
+    videos: [Video]
+    posts: [Post]
+}
+
+type UserResult {
+    success: Boolean!
+    errors: [String]
+    user: User
+}
+
+type UsersResult {
+    success: Boolean!
+    errors: [String]
+    users: [User]
+}
+
+
+# Video types
+type Video {
+    id: ID!
+    name: String!
+    likes: Int!
+    views: Int!
+    user: User!
+}
+
+type VideoResult {
+    success: Boolean!
+    errors: [String]
+    video: Video
+}
+
+type VideosResult {
+    success: Boolean!
+    errors: [String]
+    videos: [Video]
+}
+
+
+# Query and Mutation types
+type Query {
+    getPost(id: ID!): PostResult!
+    getUser(id: ID!): UserResult!
+    getVideo(id: ID!): VideoResult!
+    listPosts: PostsResult!
+    listUsers: UsersResult!
+    listVideos: VideosResult!
+}
+
+
+type Mutation {
+    createPost(
+        title: String!,
+        description: String!,
+        user_id: ID!
+    ): PostResult!
+    createUser(
+        username: String!,
+        email: String!,
+        password: String!
+    ): UserResult!
+    deletePost(
+        id: ID
+    ): PostResult!
+    deleteUser(
+        id: ID
+    ): UserResult!
+    updatePost(
+        id: ID!,
+        title: String,
+        description: String
+        user_id: ID
+    ): PostResult!
+    updateUser(
+        id: ID!,
+        username: String,
+        email: String,
+        password: String
+    ): UserResult!
+    createVideo(
+        name: String!,
+        likes: Int,
+        views: Int,
+        user_id: ID!
+    ): VideoResult!
+    updateVideo(
+        id: ID!,
+        name: String,
+        likes: Int,
+        views: Int,
+        user_id: ID
+    ): VideoResult!
+    deleteVideo(
+        id: ID
+    ): VideoResult!
+}
